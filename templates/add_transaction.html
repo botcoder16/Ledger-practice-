@@ -1,0 +1,40 @@
+{% extends "base.html"%}
+{% block title%}Add Transaction{%endblock title%}
+{% block transactionactive%}active{% endblock transactionactive%}
+{%block body%}
+  <div class="container">
+      <h2 class="display-4 text-center my-3">Transaction</h2>
+      <form action="/transaction" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="name" class="form-label">Borrower User Name:</label>
+          <br>
+          <h3 class=" form-label text-uppercase">{{user.first_name}} {{user.last_name}}</h3>
+        </div>
+        <h3>OWES</h3>
+        <div class="mb-3">
+          <label for="name" class="form-label">Lender User Name</label>
+          <input type="text" class="form-control" id="lender name" name="lender name" placeholder="name" required>
+        </div>
+        <div class="mb-3">
+          <label for="groupId" class="form-label">Group ID</label>
+          <input type="number" class="form-control" id="groupId" name="groupId" placeholder="unique number" required>
+        </div>
+        <div class="mb-3">
+          <label for="amount" class="form-label">Amount</label>
+          <input type="number" class="form-control" id="amount" name="amount" placeholder="amount">
+        </div>
+        {%if user.is_authenticated%}
+        <button type="submit" class="btn btn-success">Submit</button>
+        {%else%}
+        <p class="text-center">Please login to add Transaction</p>
+        {%endif%}
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"></script>
+{%endblock body%}

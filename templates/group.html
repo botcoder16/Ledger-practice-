@@ -1,0 +1,81 @@
+{%extends "base.html"%}
+{%block title%}Group{%endblock title%}
+{%block groupactive%}active{%endblock groupactive%}
+{%block body%}
+
+<div class="modal fade" id="CreateGroupModal" tabindex="-1" aria-labelledby="CreateGroupModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="CreateGroupModal">Create Group</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/create_group" method="post">
+          <p class="fs-6 mb-3"> Group ID: Already generated</p>
+          <div class="mb-3">
+            <label for="Gname" class="form-label">Group Name</label>
+            <input type="text" class="form-control" id="Gname" name="Gname" placeholder="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="user1" class="form-label">First Member</label>
+            <br>
+          <h4 class=" form-label text-uppercase">{{user.first_name}} {{user.last_name}}</h4>
+          </div>
+          <div class="mb-3">
+            <label for="user2" class="form-label">Second Member</label>
+            <input type="text" class="form-control" id="user2" name="user2" placeholder="username" required>
+          </div>
+          <p class="fs-6 mb-3"> Can add more user later</p>
+          {% csrf_token %}
+          <div>
+            <button type="submit" class="btn btn-primary my-2">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="mb-3">
+    <h2 class="display-4 text-center my-3">Groups</h2>
+    <h4 class="display-6">List of Groups:</h4>
+    {% if user.is_authenticated %}
+    <button type="button" class="btn btn-success mb-2" data-bs-toggle="modal" data-bs-target="#CreateGroupModal">
+      Create Group
+    </button>
+    {% else %}
+    <p class="text-center">Please login to create a group</p>
+    {% endif %}
+  </div>
+  {%for group in groups%}
+  <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 d-flex flex-column position-static">
+      <strong class="d-inline-block mb-2 text-primary-emphasis">Group id: {{group.groupId}}</strong>
+      <h3 class="mb-0">Group Name: {{group.groupName}}</h3>
+      <div class="mb-1 text-body-secondary">{{group.time}}</div>
+      <p class="card-text mb-auto">Group Members [{{group.no_of_users}}]: {% for user in group.users.all%}{{user}} ,{%endfor%}</p>
+      <a href="/group_history/{{group.groupId}}" class="icon-link gap-1 icon-link-hover stretched-link">
+        Open Group
+        <svg class="bi">
+          <use xlink:href="#chevron-right"></use>
+        </svg>
+      </a>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+      <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img"
+        aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <title>Placeholder</title>
+        <rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef"
+          dy=".3em">Thumbnail</text>
+      </svg>
+    </div>
+  </div>
+  {%endfor%}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  {%endblock body%}

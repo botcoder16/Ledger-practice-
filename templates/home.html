@@ -1,0 +1,88 @@
+{%extends "base.html"%}
+{%block homeactive%}active{%endblock homeactive%}
+{%block title%}Home{%endblock title%}
+{%block body%}
+<div class="container">
+  <div class="jumbotron bg-opacity-75 my-3">
+    <h1 class="display-4">DashBoard</h1>
+    <div class="btn-toolbar mb-2 ">
+      <div class="btn-group mr-2">
+        <button class="btn btn-sm btn-outline-secondary">Share</button>
+        <button class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+      <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="feather feather-calendar">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        This week
+      </button>
+    </div>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
+      featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+  </div>
+</div>
+<div class="container">
+  <div class="container my-5">
+    <div class="p-5 text-center bg-body-tertiary rounded-3">
+      <svg class="bi mt-4 mb-3" style="color: var(--bs-indigo);" width="100" height="100">
+        <use xlink:href="#bootstrap"></use>
+      </svg>
+      <h1 class="text-body-emphasis">Jumbotron with icon</h1>
+      <p class="col-lg-8 mx-auto fs-5 text-muted">
+        This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a
+        responsive <code>.col-*</code> class, and a customized call to action.
+      </p>
+      <div class="d-inline-flex gap-2 mb-5">
+        <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+          Call to action
+          <svg class="bi ms-2" width="24" height="24">
+            <use xlink:href="#arrow-right-short"></use>
+          </svg>
+        </button>
+        <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
+          Secondary link
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 class="display-6 text-center my-3 ">Recent Transactions:</h2>
+<div class="container mb-5">
+  <table class="table table-group-divider table-hover table-secondary">
+  <thead>
+    <tr>
+      <th scope="col">No.</th>
+      <th scope="col">Borrower User Name</th>
+      <th scope="col">Lender User Name</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Group ID</th>
+      <th scope="col">Date/Time</th>
+    </tr>
+  </thead>
+  <tbody class="">
+    {% for transaction in transactions %}
+    {% if forloop.counter < 4 %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td>{{transaction.sender_name}}</td>
+      <td>{{transaction.reciever_name}}</td>
+      <td>{{transaction.amount}}</td>
+      <td>{{transaction.groupId}}</td>
+      <td>{{transaction.time}}</td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+  </tbody>
+</table></div>
+</div>
+{%endblock body%}
