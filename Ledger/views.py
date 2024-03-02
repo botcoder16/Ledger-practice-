@@ -1,5 +1,5 @@
 from django.shortcuts import render,HttpResponse,redirect
-from polls.models import Transaction,Group
+from Ledger.models import Transaction,Group
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
